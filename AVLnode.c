@@ -20,6 +20,7 @@ int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page) {
     }
     (*new_node)->key = key;
     (*new_node)->page = page;
+    (*new_node)->left = (*new_node)->right = NULL;
     return 1;
 }
 avlnode_ptr avl_search(avlnode_ptr node, str_t key) {
@@ -55,7 +56,7 @@ int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new) {
         return -1;
     }
     __avl_calc_hight(*node);
-    __avl_rebalance(*node);
+    __avl_rebalance(node);
 }
 //here we can delete page
 int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {

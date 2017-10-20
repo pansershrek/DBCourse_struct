@@ -24,7 +24,7 @@ int32_t key_comp(str_t key_first, str_t key_second);
 int32_t max_32t(int32_t first, int32_t second);
 
 
-int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page)
+int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page);
 avlnode_ptr avl_search(avlnode_ptr node, str_t key);
 int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new);
 int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new);

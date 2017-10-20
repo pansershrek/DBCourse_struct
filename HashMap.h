@@ -1,14 +1,15 @@
 #include <stdint.h>
 #include <stdlib.h>
+#include "AVLnode.h"
 
-enum {
+/*enum {
     MAX_KEY_LEN = 1024,
 };
 typedef struct keystrt
 { 
     uint32_t size; 
     char *ptr; 
-} str_t;
+} str_t;*/
 enum {
     MAX_HASH_NODE = 1024,
     MAX_HASH_DEP = 1024,
