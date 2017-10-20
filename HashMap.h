@@ -15,29 +15,18 @@ enum {
 };
 
 typedef struct HashMap  //create here hast table
--{ 
--    // if len_of_list[index]>MAX_LEN then top[index] is a ptr on new hash_table, else it is ptr on list
--    // dont forget mix hash after create new child table!!!!
--    int dep;
--    uint32_t  len_of_list[MAX_HASH_NODE]; //here i save the length of each list    
--    void  *top[MAX_HASH_NODE];  //here is my ptr on list or on hash table
--} hm_node;
+{ 
+    // if len_of_list[index]>MAX_LEN then top[index] is a ptr on new hash_table, else it is ptr on list
+    // dont forget mix hash after create new child table!!!!
+    int dep;
+    uint32_t  len_of_list[MAX_HASH_NODE]; //here i save the length of each list    
+    void  *top[MAX_HASH_NODE];  //here is my ptr on list or on hash table
+} hm_node;
 typedef hm_node *hm_node_ptr;
 
-int32_t hash (str_t key,int dep) { // dep if parametr for change const in hash f
-    int32_t mid = 0, p = 57, m = 1031;
-    switch (dep) {
-        case 2: p = 97; m = 3089; break;
-        case 3: p = 71; m = 2029; break;
-        case 4: p = 107; m = 4019; break;
-        case 5: p = 89; m = 6079; break;
-    }
-    for (uint32_t i = 0; i < key->size; i++){
-        mid = (mid + p * ((int)(key.ptr))) % m;
-    }
-    /*while (*key) {
-        mid = (mid + p * ((mytype)(*key))) % m;
-        key++;
-    }*/
-    return mid;
-}
+int32_t hash (str_t key,int dep);
+
+//local metodes
+int32_t __hash_remake(hm_node_ptr node, uint32_t index);
+int32_t __hash_insert_avl_in_hash(hm_node_ptr node, avlnode_ptr go);
+//metodes 

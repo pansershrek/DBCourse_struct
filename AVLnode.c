@@ -12,12 +12,14 @@ void __avl_RL_move(avlnode_ptr *node);
 void __avl_rebalance(avlnode_ptr *node);
 void __avl_erase(avlnode_ptr node); // her we can delete page
 //methods
-int32_t avl_new_node(avlnode_ptr *new_node, str_t key) {
+
+int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page) {
     (*new_node) = (avlnode_ptr) malloc(sizeof(avlnode));
     if (!(*new_node)) {
         return -1;
     }
     (*new_node)->key = key;
+    (*new_node)->page = page;
     return 1;
 }
 avlnode_ptr avl_search(avlnode_ptr node, str_t key) {
@@ -53,7 +55,7 @@ int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new) {
         return -1;
     }
     __avl_calc_hight(*node);
-    __avl_calc_balance(*node);
+    __avl_rebalance(*node);
 }
 //here we can delete page
 int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
@@ -94,7 +96,7 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
                 if (mid1->left) {
                     mid1->left->parent = *node;
                 }
-                __avl_calc_balance(*node);
+                __avl_calc_hight(*node);
                 __avl_rebalance(node);
             } else {
                 if (mid1->left) {
@@ -106,11 +108,11 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
                 mid1->page = NULL;
                 free(mid1);
                 while (mid2 != (*node)) {
-                    __avl_calc_balance(mid2);
+                    __avl_calc_hight(mid2);
                     __avl_rebalance(&mid2);
                     mid2 = mid2->parent;
                 }
-                __avl_calc_balance(*node);
+                __avl_calc_hight(*node);
                 __avl_rebalance(node);
             }
         } else if ((*node)->left) {
@@ -122,7 +124,7 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
             (*node)->page = mid1->page;
             (*node)->left = mid1->left;
             (*node)->right = mid1->right;
-            __avl_calc_balance(*node);
+            __avl_calc_hight(*node);
             mid1->key.ptr = NULL;
             mid1->page = NULL;
             free(mid1);
@@ -135,13 +137,13 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
             (*node)->page = mid1->page;
             (*node)->left = mid1->left;
             (*node)->right = mid1->right;
-            __avl_calc_balance(*node);
+            __avl_calc_hight(*node);
             mid1->key.ptr = NULL;
             mid1->page = NULL;
             free(mid1);
         }
     }
-    __avl_calc_balance(*node);
+    __avl_calc_hight(*node);
     __avl_rebalance(node);
     return 1;
 }
