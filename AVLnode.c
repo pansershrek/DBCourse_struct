@@ -165,8 +165,7 @@ int32_t __avl_get_hight(avlnode_ptr node) {
 }
 void __avl_calc_hight(avlnode_ptr node) {
     if (node) {
-        printf("%d",(int)(max_32t(1,2)));
-        //node->hight = max_32t(__avl_get_hight(node->left), __avl_calc_hight(node->right)) + 1;
+        node->hight = max_32t(__avl_get_hight(node->left), __avl_get_hight(node->right)) + 1;
     }
 }
 int32_t __avl_calc_balance(avlnode_ptr node) {
