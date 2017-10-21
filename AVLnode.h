@@ -28,3 +28,6 @@ int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page);
 avlnode_ptr avl_search(avlnode_ptr node, str_t key);
 int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new);
 int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new);
+//kostili
+void __avl_calc_hight(avlnode_ptr node);
+void __avl_rebalance(avlnode_ptr *node);

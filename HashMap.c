@@ -14,7 +14,7 @@ int32_t hash_new_node(hm_node_ptr *node, uint32_t dep) {
     (*node)->dep = dep;
     return 0;
 }
-hm_node_ptr hash_search(hm_node_ptr node, str_t key) {
+avlnode_ptr hash_search(hm_node_ptr node, str_t key) {
     if (!node) {
         return NULL;
     }
@@ -24,6 +24,7 @@ hm_node_ptr hash_search(hm_node_ptr node, str_t key) {
             return avl_search((avlnode_ptr)(node->top[mid_key]), key);
         } else {
             node = node->top[mid_key];
+            mid_key = hash(key, node->dep);
         }
     }
 }
@@ -43,15 +44,22 @@ int32_t hash_insert(hm_node_ptr node, str_t key, void *page) {
     __hash_remake(node, mid_key);
     return 1;
 }
-int32_t hash_delete(hm_node_ptr node, str_t key) {
-    node = hash_search(node, key);
+int32_t hash_delete(hm_node_ptr node, str_t key) {//remake there are some errore
     if (!node) {
         return 0;
     }
     int32_t mid_key = hash(key, node->dep);
-    avlnode_ptr new_avl_node;
-    avl_new_node(&new_avl_node, key, NULL);
-    avl_remove_node(node->top[mid_key], new_avl_node);
+    while (1) {
+        if (node->len_of_list[mid_key] < MAX_HASH_DEP) {
+            avlnode_ptr new_avl_node;
+            avl_new_node(&new_avl_node, key, NULL);
+            avl_remove_node(node->top[mid_key], new_avl_node);
+            free(new_avl_node);
+        } else {
+            node = node->top[mid_key];
+            mid_key = hash(key, node->dep);
+        }
+    }
     return 1;
 }
 

@@ -11,8 +11,8 @@ int32_t hash (str_t key,int dep) {
         case 4: p = 107; m = 4019; break;
         default: p = 89; m = 6079; break;
     }
-    for (uint32_t i = 0; i < key->size; i++){
-        mid = (mid + p * ((int)(key.ptr))) % m;
+    for (uint32_t i = 0; i < key.size; i++){
+        mid = (mid + p * ((int)(key.ptr[i]))) % m;
     }
     return mid;
 }
