@@ -11,7 +11,7 @@ int32_t avl_test_print(avlnode_ptr node, int32_t dep) {
     if (node->right) {
         avl_test_print(node->right,dep +1 );
     }
-    printf("%d  ", node->key.size);
+    printf("%d\n", node->key.size);
     if (node->parent) {
         printf("the paren is %d\n",node->parent->key.size);
     }
@@ -20,8 +20,7 @@ int32_t avl_test_print(avlnode_ptr node, int32_t dep) {
     
     return 1;
 }
-avlnode_ptr avl_test_search(avlnode_ptr node, str_t key)
-{
+avlnode_ptr avl_test_search(avlnode_ptr node, str_t key){
     if (!node) {
         return NULL;
     } 

@@ -25,13 +25,19 @@ typedef avlnode *avlnode_ptr;
 int32_t key_comp(str_t key_first, str_t key_second);
 int32_t max_32t(int32_t first, int32_t second);
 
-
+//metodes
 int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page);
 avlnode_ptr avl_search(avlnode_ptr node, str_t key);
 int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new);
 int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new);
-//kostili
+//local metodes
+int32_t __avl_get_hight(avlnode_ptr node);
 void __avl_calc_hight(avlnode_ptr node);
+int32_t __avl_calc_balance(avlnode_ptr node);
+void __avl_right_move(avlnode_ptr *node);
+void __avl_left_move(avlnode_ptr *node);
+void __avl_LR_move(avlnode_ptr *node);
+void __avl_RL_move(avlnode_ptr *node);
 void __avl_rebalance(avlnode_ptr *node);
 void __avl_erase(avlnode_ptr node);
 //test func
