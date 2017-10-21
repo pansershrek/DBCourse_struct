@@ -67,7 +67,19 @@ int32_t hash_delete(hm_node_ptr node, str_t key) {
     return 1;
 }
 
-
+int32_t hash_erase(hm_node_ptr node) {
+    if (!node) {
+        return 0;
+    }
+    for (uint32_t i = 0; i < MAX_HASH_NODE; i++) {
+        if (node->len_of_list[i] > MAX_HASH_DEP) {
+            hash_erase(node->top[i]);
+        } else {
+            __avl_erase(node->top[i]);
+        }
+    }
+    return 1;
+}
 int32_t __hash_remake(hm_node_ptr node, uint32_t index) {
     //if == then it is flag that make new hash, if > that it is hash
     if (node->len_of_list[index] != MAX_HASH_DEP) {

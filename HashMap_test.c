@@ -7,7 +7,7 @@ int32_t hash_test(str_t key, int32_t dep) {
 
 int32_t hash_test_print(hm_node_ptr node) {
     
-    for (int i = 0; i <  MAX_HASH_NODE; i++) {
+    for (uint32_t i = 0; i <  MAX_HASH_NODE; i++) {
         if (node->len_of_list[i] != 0) {
             avl_test_print(node->top[i], 1);
         }
