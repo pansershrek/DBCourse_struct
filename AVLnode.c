@@ -1,3 +1,5 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "AVLnode.h"
 
 //prototipes local methods
@@ -43,12 +45,12 @@ int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new) {
         return 1;
     }
     if (key_comp((*node)->key, node_new->key) > 0) {
-        return avl_insert_node(&(*node)->right, node_new);
+        avl_insert_node(&(*node)->right, node_new);
         if ((*node)->right) {
             (*node)->right->parent = *node;
         }
     } else if (key_comp((*node)->key, node_new->key) < 0) {
-        return avl_insert_node(&(*node)->left, node_new);
+        avl_insert_node(&(*node)->left, node_new);
         if ((*node)->left) {
             (*node)->left->parent = *node;
         }
@@ -57,6 +59,7 @@ int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new) {
     }
     __avl_calc_hight(*node);
     __avl_rebalance(node);
+    return 1;
 }
 //here we can delete page
 int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {

@@ -1,7 +1,9 @@
+// This is a personal academic project. Dear PVS-Studio, please check it.
+// PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 #include "AVLnode.h"
 
 int32_t key_comp(str_t key_first, str_t key_second) {
-    if (key_first.size - key_second.size) {
+    if ((key_first.size - key_second.size) != 0) {
         return key_first.size - key_second.size;
     }
     return strcmp(key_first.ptr,key_second.ptr);
