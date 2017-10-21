@@ -22,7 +22,7 @@ int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page) {
     }
     (*new_node)->key = key;
     (*new_node)->page = page;
-    (*new_node)->left = (*new_node)->right = NULL;
+    (*new_node)->left = (*new_node)->right =(*new_node)->parent = NULL;
     return 1;
 }
 avlnode_ptr avl_search(avlnode_ptr node, str_t key) {

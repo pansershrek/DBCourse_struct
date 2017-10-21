@@ -33,3 +33,8 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new);
 //kostili
 void __avl_calc_hight(avlnode_ptr node);
 void __avl_rebalance(avlnode_ptr *node);
+void __avl_erase(avlnode_ptr node);
+//test func
+int32_t avl_test_print(avlnode_ptr node, int32_t dep);
+avlnode_ptr avl_test_search(avlnode_ptr node, str_t key);
+int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new);
