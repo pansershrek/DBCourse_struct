@@ -117,6 +117,6 @@ int32_t __hash_insert_avl_in_hash(hm_node_ptr node, avlnode_ptr go) {
     __avl_rebalance(&go);
     int32_t mid_key = hash(go->key, node->dep);
     node->len_of_list[mid_key]++;
-    avl_insert_node(node->top[mid_key], go);
+    avl_insert_node(&(node->top[mid_key]), go);
     return 1;
 }
