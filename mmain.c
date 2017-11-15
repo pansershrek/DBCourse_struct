@@ -5,35 +5,19 @@
 #include "HashMap.h"
 
 int main(void) {
-    hm_node_ptr mapa;
-    hash_new_node(&mapa,1);
+    hm_node_ptr mapa;       //this is my hashmap;
+    hash_new_node(&mapa,1);     //here i initialize it, were 2 num is a deep of hasm map
     for (int i = 0; i < 20; i++) {
         str_t key;
         key.size = i + 1;
-        hash_test_insert(mapa, key, NULL);
+        hash_insert(mapa, key, NULL); // here i insert in hashmap MAPA with KEY => key, PAGA => NULL
     }
     str_t key;
     key.size = 10;
     avlnode_ptr node;
-    node = hash_test_search(mapa, key);
+    node = hash_search(mapa, key); // here i search in hashmap MAPA with KEY => key;
     
-    hash_test_delete(mapa, key);
-    hash_test_print(mapa);
-    /*avlnode_ptr top = NULL;
-    for (int i = 0; i < 20; i++) {
-        avlnode_ptr node;
-        str_t key;
-        key.size = i;
-        avl_new_node(&node, key, NULL);
-        avl_insert_node(&top, node);
-    }
-    avlnode_ptr node;
-    str_t key;
-    key.size = 18;
-    avl_new_node(&node, key, NULL);
-    avl_test_remove_node(&top, node);
-    printf("BEGIN INPUT\n\n");
-    avl_test_print(top, 1);
-    //__avl_erase(top);*/
+    hash_delete(mapa, key); // i delete from hashmap MAPA with KEY => key;
+    hash_erase(mapa);  // here i clean memory
     return 0;
 }
