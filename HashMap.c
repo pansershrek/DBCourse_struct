@@ -42,7 +42,7 @@ int32_t hash_insert(hm_node_ptr node, str_t key, void *page) {
     node->len_of_list[mid_key]++;
     avlnode_ptr new_avl_node;
     avl_new_node(&new_avl_node, key, page);
-    avl_insert_node(node->top[mid_key], new_avl_node);
+    avl_insert_node(&(node->top[mid_key]), new_avl_node);
     __hash_remake(node, mid_key);
     return 1;
 }
