@@ -64,7 +64,7 @@ int32_t hash_delete(hm_node_ptr node, str_t key) {
     }
     int32_t mid_key = hash(key, node->dep);
     while (1) {
-        printf("Key %d\n",mid_key);
+        
         if (node->len_of_list[mid_key] < MAX_HASH_DEP) {
             avlnode_ptr new_avl_node;
             avl_new_node(&new_avl_node, key, NULL);
