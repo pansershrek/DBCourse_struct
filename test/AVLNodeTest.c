@@ -1,6 +1,8 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-#include "AVLnode.h"
+
+#include "AVLNode.h"
+
 int32_t avl_test_print(avlnode_ptr node, int32_t dep) {
     if (!node) {
         return 0;
@@ -15,16 +17,14 @@ int32_t avl_test_print(avlnode_ptr node, int32_t dep) {
     if (node->parent) {
         printf("the paren is %d\n",node->parent->key.size);
     }
-    
-    
-    
     return 1;
 }
+
 avlnode_ptr avl_test_search(avlnode_ptr node, str_t key){
     if (!node) {
         return NULL;
-    } 
-    
+    }
+
     if (node->key.size == key.size) {
         return node;
     } else {
@@ -37,9 +37,9 @@ avlnode_ptr avl_test_search(avlnode_ptr node, str_t key){
 }
 
 int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
-    
+
     if (!(*node)) {
-        printf("NO\n"); 
+        printf("NO\n");
         return -1;
     }
     printf("top is %d\n",(*node)->key.size);
@@ -50,7 +50,7 @@ int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
     } else {
         if (!(*node)->left && !(*node)->right) {
             printf("No child\n");
-            
+
             avlnode_ptr last = (*node)->parent;
             if (last && (last->left == *node)) {
                 last->left = NULL;
@@ -59,12 +59,12 @@ int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
                 last->right = NULL;
                 printf("right\n");
             }
-            __avl_calc_hight(last);
+            avl_calc_hight(last);
             //delete key
             //delete page
             //???????????
             free((*node));
-            
+
         } else if ((*node)->left && (*node)->right) {
             printf("All child\n");
             avlnode_ptr mid1 = *node, mid2;
@@ -82,8 +82,8 @@ int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
                 if (mid1->left) {
                     mid1->left->parent = *node;
                 }
-                __avl_calc_hight(*node);
-                __avl_rebalance(node);
+                avl_calc_hight(*node);
+                avl_rebalance(node);
             } else {
                 if (mid1->left) {
                     mid1->left->parent = mid1->parent;
@@ -94,12 +94,12 @@ int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
                 mid1->page = NULL;
                 free(mid1);
                 while (mid2 != (*node)) {
-                    __avl_calc_hight(mid2);
-                    __avl_rebalance(&mid2);
+                    avl_calc_hight(mid2);
+                    avl_rebalance(&mid2);
                     mid2 = mid2->parent;
                 }
-                __avl_calc_hight(*node);
-                __avl_rebalance(node);
+                avl_calc_hight(*node);
+                avl_rebalance(node);
             }
         } else if ((*node)->left) {
             printf("left child\n");
@@ -111,7 +111,7 @@ int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
             (*node)->page = mid1->page;
             (*node)->left = mid1->left;
             (*node)->right = mid1->right;
-            __avl_calc_hight(*node);
+            avl_calc_hight(*node);
             mid1->key.ptr = NULL;
             mid1->page = NULL;
             free(mid1);
@@ -125,13 +125,13 @@ int32_t avl_test_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
             (*node)->page = mid1->page;
             (*node)->left = mid1->left;
             (*node)->right = mid1->right;
-            __avl_calc_hight(*node);
+            avl_calc_hight(*node);
             mid1->key.ptr = NULL;
             mid1->page = NULL;
             free(mid1);
         }
-    } 
-    __avl_calc_hight(*node);
-    __avl_rebalance(node);
+    }
+    avl_calc_hight(*node);
+    avl_rebalance(node);
     return 1;
 }
