@@ -13,8 +13,8 @@ typedef struct keystrt
     char *ptr; 
 } str_t;*/
 enum {
-    MAX_HASH_NODE = 1024,
-    MAX_HASH_DEP = 1024,
+    MAX_HASH_NODE = 10024,
+    MAX_HASH_DEP = 10024,
 };
 
 typedef struct HashMap  //create here hast table

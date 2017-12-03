@@ -1,23 +1,42 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
-//#pragma once
-#include <stdio.h>
-#include "HashMap.h"
+// struct hashmap_key {
+//  /* Pointer to offset inside page (stored inside headers of arena-pages) */
+//  page_header_key_t * header_key_id;
+//  /* Page identificator. Storing this we can find the page, where stored value */
+//  page_id_t page;
+// };
 
-int main(void) {
-    hm_node_ptr mapa;       //this is my hashmap;
-    hash_new_node(&mapa,1);     //here i initialize it, were 2 num is a deep of hasm map
-    for (int i = 0; i < 20; i++) {
-        str_t key;
-        key.size = i + 1;
-        hash_insert(mapa, key, NULL); // here i insert in hashmap MAPA with KEY => key, PAGA => NULL
+
+//#include "lib/hashmap/HashMap.h"
+#include "HashMap.h"
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char const *argv[]) {
+
+    hm_node_ptr hashmap;
+    str_t key = { 3, "abc" };
+
+    int page1 = 1;
+
+    if (-1 == hash_new_node(&hashmap, 0)) {
+        fprintf(stderr, "Some error!\n");
+        exit(EXIT_FAILURE);
     }
-    str_t key;
-    key.size = 10;
-    avlnode_ptr node;
-    node = hash_search(mapa, key); // here i search in hashmap MAPA with KEY => key;
+
+    hash_insert(hashmap, key, (void *) &page1);
+    str_t key2 = { 3, "abc" };
+    avlnode_ptr node = hash_search(hashmap, key2);
+
+    //assert(node);
+    printf("%s\n", node->key.ptr);
     
-    hash_delete(mapa, key); // i delete from hashmap MAPA with KEY => key;
-    hash_erase(mapa);  // here i clean memory
+    hash_delete(hashmap, key2);
+    node = hash_search(hashmap, key2);
+    if (node) {
+        printf("%s\n", node->key.ptr);
+    }
     return 0;
 }

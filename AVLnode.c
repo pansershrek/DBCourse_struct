@@ -20,6 +20,7 @@ int32_t avl_new_node(avlnode_ptr *new_node, str_t key, void *page) {
     if (!(*new_node)) {
         return -1;
     }
+    (*new_node)->hight = 1;
     (*new_node)->key = key;
     (*new_node)->page = page;
     (*new_node)->left = (*new_node)->right =(*new_node)->parent = NULL;
@@ -39,26 +40,36 @@ avlnode_ptr avl_search(avlnode_ptr node, str_t key) {
         }
     }
 }
-int32_t avl_insert_node(avlnode_ptr *node, avlnode_ptr node_new) {
-    if (!(*node)) {
+int32_t avl_insert_node(avlnode_ptr node, avlnode_ptr node_new) {
+    /*if (!(*node)) {
+        printf("Copy\n");
         *node = node_new;
         return 1;
-    }
-    if (key_comp((*node)->key, node_new->key) > 0) {
-        avl_insert_node(&(*node)->right, node_new);
-        if ((*node)->right) {
-            (*node)->right->parent = *node;
+    }*/
+    if (key_comp(node->key, node_new->key) > 0) {
+        if (node->right) {
+            avl_insert_node(node->right, node_new);
+        } else {
+            node->right = node_new;
         }
-    } else if (key_comp((*node)->key, node_new->key) < 0) {
-        avl_insert_node(&(*node)->left, node_new);
-        if ((*node)->left) {
-            (*node)->left->parent = *node;
+        if (node->right) {
+            node->right->parent = node;
+        }
+    } else if (key_comp(node->key, node_new->key) < 0) {
+        if (node->left) {
+            avl_insert_node(node->left, node_new);
+        } else {
+            node->left = node_new;
+        }
+        
+        if (node->left) {
+            node->left->parent = node;
         }
     } else {
         return -1;
     }
-    __avl_calc_hight(*node);
-    __avl_rebalance(node);
+    __avl_calc_hight(node);
+    __avl_rebalance(&node);
     return 1;
 }
 //here we can delete page
