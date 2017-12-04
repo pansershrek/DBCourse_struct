@@ -1,23 +1,33 @@
 // This is a personal academic project. Dear PVS-Studio, please check it.
 // PVS-Studio Static Code Analyzer for C, C++ and C#: http://www.viva64.com
 
+#include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "HashMap.h"
 
 int main(void) {
-    hm_node_ptr mapa;           // this is my hashmap
-    hash_new_node(&mapa, 1);     // here I initialize it, were 2-nd number is a deep of hashmap
-    for (int i = 0; i < 20; i++) {
-        str_t key;
-        key.size = i + 1;
-        hash_insert(mapa, key, NULL); // here I insert into hashmap `mapa` pair KEY => key, PAGE => NULL
-    }
-    str_t key;
-    key.size = 10;
-    avlnode_ptr node;
-    node = hash_search(mapa, key); // here I search through hashmap `mapa` KEY => key;
+    
+    hm_node_ptr hashmap;
+    str_t key = { 3, "abc" };
 
-    hash_delete(mapa, key); // I delete from hashmap `mapa` KEY => key;
-    hash_erase(mapa);  // here I clean memory
+    int page1 = 1;
+
+    if (-1 == hash_new_node(&hashmap, 0)) {
+        fprintf(stderr, "Some error!\n");
+        exit(EXIT_FAILURE);
+    }
+    
+    hash_insert(hashmap, key, (void *) &page1);
+
+    str_t key2 = { 3, "abc" };
+    avlnode_ptr node = hash_search(hashmap, key2);
+
+    assert(node);
+
+    printf("%u\n", node->key.size);
+
+    hash_delete(hashmap, key2);
+    hash_erase(hashmap);
     return 0;
 }

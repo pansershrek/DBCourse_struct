@@ -7,9 +7,13 @@ int32_t hash_new_node(hm_node_ptr *node, uint32_t dep) {
     if (!node) {
         return -1;
     }
-    hm_node * new_node = (hm_node*) malloc(sizeof(hm_node));
+    hm_node_ptr new_node = (hm_node*) malloc(sizeof(hm_node));
     if (!new_node) {
         return -1;
+    }
+    for (int32_t i = 0; i < MAX_HASH_NODE; i++) {
+        new_node->top[i] = NULL;
+        new_node->len_of_list[i] = 0;
     }
     new_node->dep = dep;
     *node = new_node;
@@ -37,7 +41,7 @@ int32_t hash_insert(hm_node_ptr node, str_t key, void *page) {
     }
 
     int32_t mid_key = hash(key, node->dep);
-    
+    //printf("mid_key %d\n",mid_key);
     while (node->len_of_list[mid_key] > MAX_HASH_DEP) {
         
         node = node->top[mid_key];
@@ -71,7 +75,9 @@ int32_t hash_delete(hm_node_ptr node, str_t key) {
             avlnode_ptr new_avl_node;
             avl_new_node(&new_avl_node, key, NULL);
             avl_remove_node((avlnode_ptr *)(&node->top[mid_key]), new_avl_node);
-            free(new_avl_node);
+            if (new_avl_node) {
+                free(new_avl_node);
+            }
             node->len_of_list[mid_key]--;
             break;
         } else {
@@ -90,9 +96,13 @@ int32_t hash_erase(hm_node_ptr node) {
         if (node->len_of_list[i] > MAX_HASH_DEP) {
             hash_erase(node->top[i]);
         } else {
-            avl_erase(node->top[i]);
+            if (node->len_of_list[i] > 0) {
+                avl_erase(node->top[i]);
+            }
+            
         }
     }
+    free(node);
     return 1;
 }
 
