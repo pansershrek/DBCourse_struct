@@ -71,9 +71,9 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
         return -1;
     }
     if (key_comp((*node)->key, node_new->key) > 0) {
-        return avl_remove_node(&(*node)->right, node_new);
+        avl_remove_node(&(*node)->right, node_new);
     } else if (key_comp((*node)->key,node_new->key) < 0) {
-        return avl_remove_node(&(*node)->left, node_new);
+        avl_remove_node(&(*node)->left, node_new);
     } else {
         if (!(*node)->left && !(*node)->right) {
             avlnode_ptr last = (*node)->parent;
