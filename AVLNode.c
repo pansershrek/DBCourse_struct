@@ -60,8 +60,8 @@ int32_t avl_insert_node(avlnode_ptr node, avlnode_ptr node_new) {
     } else {
         return -1;
     }
-    __avl_calc_hight(node);
-    __avl_rebalance(&node);
+    avl_calc_hight(node);
+    avl_rebalance(&node);
     return 1;
 }
 
