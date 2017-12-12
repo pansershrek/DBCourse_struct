@@ -115,7 +115,7 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
             }
             avl_calc_hight(last);
             // delete page
-            // free((*node)->page);
+            // free((*node)->key);
             (*node)->key.ptr = "err";
             avlnode_ptr mid_kek = *node;
             free(mid_kek);
@@ -128,7 +128,7 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
                 mid1 = mid1->right;
             }
             // delete page
-            // free((*node)->page);
+            // free((*node)->key);
             (*node)->key = mid1->key;
             (*node)->page = mid1->page;
             if (mid1 == (*node)->left) {
@@ -159,7 +159,7 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
         } else if ((*node)->left) {
             avlnode_ptr mid1 = (*node)->left;
             // delete page  
-            //free((*node)->page);
+            //free((*node)->key);
             (*node)->key = mid1->key;
             (*node)->page = mid1->page;
             (*node)->left = mid1->left;
@@ -179,7 +179,7 @@ int32_t avl_remove_node(avlnode_ptr *node, avlnode_ptr node_new) {
         } else if ((*node)->right) {
             avlnode_ptr mid1 = (*node)->right;
             // delete page
-            //free((*node)->page);
+            //free((*node)->key);
             (*node)->key = mid1->key;
             (*node)->page = mid1->page;
             (*node)->left = mid1->left;
